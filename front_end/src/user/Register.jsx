@@ -9,13 +9,25 @@ function Register() {
     number: "",
   });
 
+  const getFormData = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+
   const handleSend = async (e) => {
-    e.priventDefualt();
+    e.preventDefault();
     try {
-      const res = await axios("http://localhost:3000/users/register", state);
-      console.log("Login success:", res.data);
+      const res = await axios.post(
+        "http://localhost:3000/users/register",
+        state,
+        { withCredentials: true }
+      );
+
+      console.log("Register success:", res.data);
+      alert("Registration successful!");
+      setState({ email: "", password: "", name: "", number: "" });
     } catch (error) {
-      console.log(error);
+      console.log("user alredy exsisted",error);
+      alert("user alredy exsisted")
     }
   };
 
@@ -50,7 +62,7 @@ function Register() {
               name="name"
               value={state.name}
               placeholder="Your Name"
-              onChange={(e) => setState(e.target.value)}
+              onChange={getFormData}
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-1xl font-Gothic border-b-2"
             />
             <input
@@ -58,7 +70,7 @@ function Register() {
               name="email"
               value={state.email}
               placeholder="Your Email"
-              onChange={(e) => setState(e.target.value)}
+              onChange={getFormData}
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-1xl font-Gothic border-b-2"
             />
             <input
@@ -66,7 +78,7 @@ function Register() {
               name="password"
               value={state.password}
               placeholder="Password"
-              onChange={(e) => setState(e.target.value)}
+              onChange={getFormData}
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-1xl font-Gothic border-b-2"
             />
             <input
@@ -74,7 +86,7 @@ function Register() {
               name="number"
               value={state.number}
               placeholder="Your number"
-              onChange={(e) => setState(e.target.value)}
+              onChange={getFormData}
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-1xl font-Gothic border-b-2"
             />
             <button

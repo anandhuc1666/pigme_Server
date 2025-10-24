@@ -5,8 +5,8 @@ import Register from './user/Register'
 function App() {
   return (
     <div>
-    {/* <Login/> */}
-    <Register/>
+    <Login/>
+    {/* <Register/> */}
     </div>
   )
 }

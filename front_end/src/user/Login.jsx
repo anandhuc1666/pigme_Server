@@ -1,16 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Register from "./Register";
 
 function Login() {
   const [state, setState] = useState({ email: "", password: "" });
+
+
+  const handlechange=(e)=>{
+   setState({...state,[e.target.name]:e.target.value})
+  }
 
   const handleSub = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/users/login", state);
+      alert("user login success")
       console.log("Login success:", res.data);
+     
     } catch (err) {
       console.log(err);
+      alert("user login faild try again")
     }
   };
 
@@ -48,14 +57,14 @@ function Login() {
               name="email"
               value={state.email}
               placeholder="Your email"
-              onChange={(e) => setState(e.target.value)}
+              onChange={handlechange}
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-2xl font-Gothic"
             />
             <input
               type="password"
               name="password"
               value={state.password}
-              onChange={(e) => setState(e.target.value)}
+              onChange={handlechange}
               placeholder="Your password"
               className="w-full h-14 md:h-16 rounded-full px-6 text-lg md:text-2xl font-Gothic"
             />
