@@ -1,9 +1,16 @@
-import express from "express"
-import { newMsg } from "../controller/users/messages.js"
-import verifyUser from "../middleware/token.js"
+import express from "express";
+import {
+  getNonUserMsg,
+  getUserMsg,
+  newMsg,
+} from "../controller/users/messages.js";
+import verifyUser from "../middleware/token.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/newMsg',verifyUser,newMsg)
+router
+  .post("/newMsg", verifyUser, newMsg)
+  .get("/msgs", verifyUser, getUserMsg)
+  .get("/nonusermsg", verifyUser, getNonUserMsg);
 
-export default router
+export default router;
