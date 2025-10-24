@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wght@400..700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-Roboto:'Roboto', 'sans-serif',
+ 
+}
+@theme{
+ --font-Gothic: "Special Gothic", sans-serif;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-50%); 
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  20% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
