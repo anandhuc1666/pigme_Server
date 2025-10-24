@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Register from "./Register";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [state, setState] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
-
-  const handlechange=(e)=>{
-   setState({...state,[e.target.name]:e.target.value})
-  }
+  const handlechange = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
 
   const handleSub = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/users/login", state);
-      alert("user login success")
+      alert("user login success");
       console.log("Login success:", res.data);
-     
+      navigate("/home");
     } catch (err) {
       console.log(err);
-      alert("user login faild try again")
+      alert("user login faild try again");
     }
   };
 

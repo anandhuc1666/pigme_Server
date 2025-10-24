@@ -2,7 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import router from "./routes/userRoute.js";
+import newMsg from "./routes/mesRoute.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
@@ -14,6 +16,7 @@ app.use(
   })
 );
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -22,6 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users", router);
+app.use("/user", newMsg);
 
 mongoose
   .connect(process.env.MONGODB_URL)

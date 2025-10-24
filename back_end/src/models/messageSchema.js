@@ -8,7 +8,7 @@ const message = new mongoose.Schema(
             ref:"users"
         },
         msg:{
-            type:String()
+            type:String
         },
         
     },

@@ -1,7 +1,6 @@
-import msg from "../../models/messageSchema.js"
-import Users from "../../models/userSchema.js"
+import Users from "../../models/userSchema.js";
 
-
-export const newMsg = async(req,res)=>{
-    
-}
+export const newMsg = async (req, res) => {
+const userId = req.user
+console.log(userId)
+};
