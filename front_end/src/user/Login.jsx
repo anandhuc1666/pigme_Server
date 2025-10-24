@@ -16,6 +16,7 @@ function Login() {
           </p>
           <div className="w-[250px] h-[250px] backdrop-blur-xl bg-white/20 border border-white/30 rounded-full shadow-lg mask-t-from-30% "></div>
         </div>
+        <div className=" "></div>
       </div>
       <div className="absolute left-0 w-[150px] h-[150px] backdrop-blur-xl bg-white/20 border border-white/30 rounded-full shadow-lg animate-bounce"></div>
       <div className="absolute right-0 top-1.5/2 -translate-y-1/2  w-[250px] h-[250px] backdrop-blur-xl bg-white/20 border border-white/30 rounded-full shadow-lg"></div>
