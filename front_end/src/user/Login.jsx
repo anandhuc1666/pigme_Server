@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Register from "./Register";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [state, setState] = useState({ email: "", password: "" });
@@ -78,7 +78,8 @@ function Login() {
             </button>
           </form>
           <p className="font-Roboto text-sm md:text-base font-extralight text-center mt-4">
-            Start conversations, and make friends from all around the world!
+            Start conversations, and make friends from all around the world! <br />
+            <Link>register</Link>
           </p>
         </div>
       </div>
