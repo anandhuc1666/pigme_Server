@@ -3,7 +3,8 @@ import Msg from "../../models/messageSchema.js";
 
 export const newMsg = async (req, res) => {
    const { msg } = req.body;
-  const userId = req.user.id;
+  const userId =req.user.id
+  console.log(userId)
   try {
     const user = await Users.findById(userId);
     if (!user) {

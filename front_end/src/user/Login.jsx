@@ -17,7 +17,9 @@ function Login() {
       const res = await axios.post("http://localhost:3000/users/login", state);
       alert("user login success");
       console.log("Login success:", res.data);
-      navigate("/home");
+      navigate("/");
+      const { token } = res.data; // Extract the token from the response
+      localStorage.setItem("token", token);
     } catch (err) {
       console.log(err);
       alert("user login faild try again");
@@ -78,7 +80,8 @@ function Login() {
             </button>
           </form>
           <p className="font-Roboto text-sm md:text-base font-extralight text-center mt-4">
-            Start conversations, and make friends from all around the world! <br />
+            Start conversations, and make friends from all around the world!{" "}
+            <br />
             <Link>register</Link>
           </p>
         </div>

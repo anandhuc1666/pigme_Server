@@ -4,9 +4,9 @@ import { getUserToken } from "../../util/jwt.js";
 
 export const register = async (req, res) => {
   try {
-    const { name, email, password, number } = req.body;
+    const { name, email, password, number,gender } = req.body;
 
-    if (!name || !email || !password || !number) {
+    if (!name || !email || !password || !number ||!gender) {
       return res
         .status(400)
         .json({ message: "Please complete the registration" });
@@ -24,6 +24,7 @@ export const register = async (req, res) => {
       email,
       password: hidepassword,
       number,
+      gender
     });
 
     await newUser.save();
