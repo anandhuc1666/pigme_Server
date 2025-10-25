@@ -7,7 +7,10 @@ import boy from "../assets/boy.png";
 function Home() {
   const [user, setUser] = useState([]);
   const [msg, setMsg] = useState([]);
+  const [nonUser, setNoneUser] = useState([]);
   const [userMSG, setUserMSG] = useState({ msg: "" });
+  const myMsg = [...msg].reverse();
+  const yourMsg = [...nonUser].reverse();
   useEffect(() => {
     axios
       .get("http://localhost:3000/users/users")
@@ -36,8 +39,9 @@ function Home() {
         }
       );
 
-      console.log(res.data);
+         setMsg((prev) => [...prev, res.data.newmsg]);
       setUserMSG({ msg: "" });
+   
     } catch (error) {
       console.log("Error:", error);
       setUserMSG({ msg: "" });
@@ -54,7 +58,17 @@ useEffect(() => {
       },
       withCredentials: true,
     })
-    .then((res) => setMsg(res.data.msgs || []))
+    .then((res) => setMsg(res.data.data || []))
+    .catch((err) => console.log(err));
+
+  axios
+    .get("http://localhost:3000/user/nonusermsg", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      withCredentials: true,
+    })
+    .then((res) => setNoneUser(res.data.data || []))
     .catch((err) => console.log(err));
 }, []);
   return (
@@ -67,7 +81,7 @@ useEffect(() => {
 
         <div className="w-full h-[calc(100vh-95px)] overflow-y-auto p-3 space-y-3">
           {user.length > 0 ? (
-            user.map((i, index) => (
+            user?.map((i, index) => (
               <div
                 key={index}
                 className="w-full h-[100px] bg-white rounded-3xl flex items-center px-4 gap-3 shadow hover:bg-gray-100 transition"
@@ -89,16 +103,21 @@ useEffect(() => {
       <div className="flex-1 h-[90vh] bg-white rounded-tl-[40px] shadow-lg flex flex-col ">
         <div className="h-[100vh] flex justify-between box-border">
           {/* left side non user side resive the user mesg */}
-          <div className=" w-[600px] h-[750px] bg-amber-200 flex  items-start flex-col-reverse gap-2.5 box-border py-10 pl-10 px-10">
-            <div className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-br-2xl">
-              hello man sdcv
-            </div>
+          <div className=" w-[600px] h-[750px] flex  items-start flex-col-reverse gap-2.5 box-border py-10 pl-10 px-10 overflow-auto">
+            {yourMsg.map((i, k) => (
+              <div className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-br-2xl" key={k }>
+               {i.msg}
+              </div>
+            ))}
           </div>
           {/* sending area on there login in user msg on right side  */}
-          <div className="w-[600px] h-[750px] flex flex-col-reverse items-end gap-2.5  box-border px-10 py-10">
-            {msg.map((i, k) => (
-              <div className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl" key={k}>
-               {i.msg}
+          <div className="w-[600px] h-[750px] flex flex-col-reverse items-end gap-2.5  box-border px-10 py-10 overflow-auto">
+            {myMsg?.map((i, k) => (
+              <div
+                className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl"
+                key={k}
+              >
+                {i.msg}
               </div>
             ))}
           </div>
@@ -115,7 +134,7 @@ useEffect(() => {
           />
           <button
             onClick={handleSend}
-            className="min-w-[75px] h-[75px] rounded-full bg-gradient-to-t from-[#9747FF] to-[#C927C9] flex items-center justify-center transition hover:opacity-90"
+            className="min-w-[65px] h-[65px] rounded-full bg-gradient-to-t from-[#9747FF] to-[#C927C9] flex items-center justify-center transition hover:opacity-90"
           >
             <BsSend size={34} className="text-white" />
           </button>

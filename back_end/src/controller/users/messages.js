@@ -15,7 +15,7 @@ export const newMsg = async (req, res) => {
         msg:msg
     })
      await newmsg.save()
-     res.status(200).json({message:"new message"})
+     res.status(200).json({message:"new message",newmsg})
   } catch (error) {
     res.status(404).json({message:"invalide msg"})
     console.log(error);
@@ -23,7 +23,7 @@ export const newMsg = async (req, res) => {
 };
 
 export const getUserMsg = async (req, res) => {
-  const userId = req.user?.id || req.user?._id;
+  const userId = req.user.id
 
   try {
     if (!userId) {
