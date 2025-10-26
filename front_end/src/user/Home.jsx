@@ -15,7 +15,6 @@ function Home() {
     axios
       .get("http://localhost:3000/users/users")
       .then((res) => setUser(res.data.users || []))
-
       .catch((err) => console.log(err));
   }, []);
   const handletext = (e) => {
