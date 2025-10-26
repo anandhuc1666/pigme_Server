@@ -26,7 +26,6 @@ function Home() {
     try {
       const token = localStorage.getItem("token");
       if (!token) return alert("User not logged in");
-
       const res = await axios.post(
         "http://localhost:3000/user/newMsg",
         userMSG,
@@ -38,38 +37,37 @@ function Home() {
         }
       );
 
-         setMsg((prev) => [...prev, res.data.newmsg]);
+      setMsg((prev) => [...prev, res.data.newmsg]);
       setUserMSG({ msg: "" });
-   
     } catch (error) {
       console.log("Error:", error);
       setUserMSG({ msg: "" });
     }
   };
-useEffect(() => {
-  const token = localStorage.getItem("token");
-  if (!token) return console.log("No token found");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return console.log("No token found");
 
-  axios
-    .get("http://localhost:3000/user/msgs", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
-    .then((res) => setMsg(res.data.data || []))
-    .catch((err) => console.log(err));
+    axios
+      .get("http://localhost:3000/user/msgs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => setMsg(res.data.data || []))
+      .catch((err) => console.log(err));
 
-  axios
-    .get("http://localhost:3000/user/nonusermsg", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      withCredentials: true,
-    })
-    .then((res) => setNoneUser(res.data.data || []))
-    .catch((err) => console.log(err));
-}, []);
+    axios
+      .get("http://localhost:3000/user/nonusermsg", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      })
+      .then((res) => setNoneUser(res.data.data || []))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-[#9747FF] to-[#C927C9] flex items-end gap-x-10 p-2">
       {/* LEFT USERS LIST */}
@@ -104,8 +102,11 @@ useEffect(() => {
           {/* left side non user side resive the user mesg */}
           <div className=" w-[600px] h-[750px] flex  items-start flex-col-reverse gap-2.5 box-border py-10 pl-10 px-10 overflow-auto">
             {yourMsg.map((i, k) => (
-              <div className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-br-2xl" key={k }>
-               {i.msg}
+              <div
+                className="w-fit h-auto p-3 text-1xl bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-[white] rounded-tl-2xl rounded-tr-2xl rounded-br-2xl"
+                key={k}
+              >
+                {i.msg}
               </div>
             ))}
           </div>
