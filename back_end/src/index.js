@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import router from "./routes/userRoute.js";
-import newMsg from "./routes/mesRoute.js";
+import router from "../routes/userRoute.js";
+import newMsg from "../routes/mesRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -11,7 +11,7 @@ const app = express();
 
 app.use(
   cors({
-    origin:process.env.FRONT_END,
+    origin: process.env.FRONT_END,
     credentials: true,
   })
 );
@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.send("hello site is ok");
+  res.send("hello site is ok 🚀");
 });
 
 app.use("/users", router);
@@ -29,8 +29,9 @@ app.use("/user", newMsg);
 
 mongoose
   .connect(process.env.MONGODB_URL)
-  .then(() => console.log("mongodb connected"))
-  .catch((err) => console.log("server is not response", err));
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.log("❌ MongoDB connection error", err));
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`server is on running ${PORT}`));
+// ❌ REMOVE app.listen
+// ✅ Export app
+export default app;
