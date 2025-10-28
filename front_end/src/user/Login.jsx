@@ -15,7 +15,6 @@ function Login() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:3000/users/login", state);
-      alert("user login success");
       console.log("Login success:", res.data);
       navigate("/");
       const { token } = res.data; // Extract the token from the response
