@@ -64,9 +64,9 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
   return (
-    <div className="w-full min-h-screen bg-gradient-to-r from-[#9747FF] to-[#C927C9] flex flex-col gap-x-10 py-2">
+    <div className="w-full min-h-screen bg-gradient-to-r from-[#9747FF] to-[#C927C9] flex flex-col box-border gap-x-10 px-2.5">
     <img src={logo} alt="" className="w-[100px] fill-indigo-500 drop-shadow-lg drop-shadow-indigo-500/50 "/>
-      <div className="flex-1 h-[90vh] bg-white overflow-y-auto  rounded-tl-[40px] shadow-lg flex flex-col ">
+      <div className="flex-1 h-[90vh] bg-white overflow-y-auto  rounded-tl-[40px] rounded-tr-[40px] shadow-lg flex flex-col ">
         <div className="w-full h-[80vh] p-10 overflow-y-auto flex flex-col justify-end  gap-1">
           {yourMsg?.map((i, k) => {
             const tym = new Date(i.createdAt).toLocaleTimeString([], {
