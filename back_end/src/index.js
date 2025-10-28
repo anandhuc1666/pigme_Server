@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import router from "../routes/userRoute.js";
-import newMsg from "../routes/mesRoute.js";
+import router from "./routes/userRoute.js";
+import newMsg from "./routes/mesRoute.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
