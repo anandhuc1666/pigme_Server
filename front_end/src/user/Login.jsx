@@ -14,9 +14,9 @@ function Login() {
   const handleSub = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/users/login", state);
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_HOST}/users/login`, state);
       console.log("Login success:", res.data);
-      navigate("/");
+      navigate("/home");
       const { token } = res.data; // Extract the token from the response
       localStorage.setItem("token", token);
     } catch (err) {

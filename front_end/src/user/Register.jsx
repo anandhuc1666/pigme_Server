@@ -17,7 +17,7 @@ function Register() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:3000/users/register",
+        `${import.meta.env.VITE_SERVER_HOST}/users/register`,
         state,
         { withCredentials: true }
       );
@@ -26,8 +26,8 @@ function Register() {
       alert("Registration successful!");
       setState({ email: "", password: "", name: "", number: "" });
     } catch (error) {
-      console.log("user alredy exsisted",error);
-      alert("user alredy exsisted")
+      console.log("user alredy exsisted", error);
+      alert("user alredy exsisted");
     }
   };
 

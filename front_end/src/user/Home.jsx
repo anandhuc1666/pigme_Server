@@ -3,7 +3,7 @@ import { BsSend } from "react-icons/bs";
 // import girl from "../assets/girl.png";
 import axios from "axios";
 // import boy from "../assets/boy.png";
-import logo from "../assets/pigme_logo.png"
+import logo from "../assets/pigme_logo.png";
 import Login from "./Login";
 
 function Home() {
@@ -12,8 +12,7 @@ function Home() {
   const [userMSG, setUserMSG] = useState({ msg: "" });
   const myMsg = [...msg];
   const yourMsg = [...nonUser].reverse();
-
-
+ const server = import.meta.env.VITE_SERVER_HOST
   const handletext = (e) => {
     setUserMSG({ ...userMSG, [e.target.name]: e.target.value });
   };
@@ -22,9 +21,9 @@ function Home() {
     try {
       const token = localStorage.getItem("token");
       if (!token) return alert("User not logged in");
-      <Login/>
+      <Login />;
       const res = await axios.post(
-        "http://localhost:3000/user/newMsg",
+        `${server}/user/newMsg`,
         userMSG,
         {
           headers: {
@@ -46,7 +45,7 @@ function Home() {
     if (!token) return console.log("No token found");
 
     axios
-      .get("http://localhost:3000/user/msgs", {
+      .get(`${server}/user/msgs`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +55,7 @@ function Home() {
       .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:3000/user/nonusermsg", {
+      .get(`${server}/user/nonusermsg`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -67,7 +66,11 @@ function Home() {
   }, []);
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-[#9747FF] to-[#C927C9] flex flex-col box-border gap-x-10 px-2.5">
-    <img src={logo} alt="" className="w-[100px] fill-indigo-500 drop-shadow-lg drop-shadow-indigo-500/50 "/>
+      <img
+        src={logo}
+        alt=""
+        className="w-[100px] fill-indigo-500 drop-shadow-lg drop-shadow-indigo-500/50 "
+      />
       <div className="flex-1 h-[90vh] bg-white overflow-y-auto  rounded-tl-[40px] rounded-tr shadow-lg flex flex-col ">
         <div className="w-full h-[80vh] p-10 overflow-y-auto flex flex-col justify-end  gap-1">
           {yourMsg?.map((i, k) => {
