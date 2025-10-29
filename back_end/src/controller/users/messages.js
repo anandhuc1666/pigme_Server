@@ -1,29 +1,52 @@
 import Users from "../../models/userSchema.js";
 import Msg from "../../models/messageSchema.js";
+import MsgRoom from "../../models/messages.js";
 
 export const newMsg = async (req, res) => {
-   const { msg } = req.body;
-  const userId =req.user.id
-  console.log(userId)
+  const { msg } = req.body;
+  const userId = req.user.id;
+  console.log(userId);
   try {
     const user = await Users.findById(userId);
     if (!user) {
       return res.status(400).json({ message: "user not found" });
     }
     const newmsg = await Msg.create({
-        userId:user._id,
-        msg:msg
-    })
-     await newmsg.save()
-     res.status(200).json({message:"new message",newmsg})
+      userId: user._id,
+      msg: msg,
+    });
+    await newmsg.save();
+    res.status(200).json({ message: "new message", newmsg });
   } catch (error) {
-    res.status(404).json({message:"invalide msg"})
+    res.status(404).json({ message: "invalide msg" });
+    console.log(error);
+  }
+};
+export const newMsgRoom = async (req, res) => {
+  const { msg } = req.body;
+  const { reseverId } = req.body;
+  const userId = req.user.id;
+  try {
+    const user = await Users.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "user not found" });
+    }
+    const newMsg = await MsgRoom.create({
+      userId: user._id,
+      reciverId: reseverId,
+      messages: msg,
+    });
+    if (!newMsg) {
+      return res.status(404).json({ message: "msg room not found" });
+    }
+    console.log("room created");
+  } catch (error) {
     console.log(error);
   }
 };
 
 export const getUserMsg = async (req, res) => {
-  const userId = req.user.id
+  const userId = req.user.id;
 
   try {
     if (!userId) {
@@ -39,22 +62,21 @@ export const getUserMsg = async (req, res) => {
       message: "User messages fetched",
       data: userMessages,
     });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error", error });
   }
 };
 
-export const getNonUserMsg = async(req,res)=>{
-    const userId = req.user.id
-    const findMsg = await Msg.find()
-    if(!userId){
-        return res.status(400).json({message:"user not exsisted"})
-    }
-   const findallmsg = findMsg.filter((item)=>item.userId != userId)
-   if(!findallmsg || findallmsg.length === 0){
-    return res.status(400).json({message:"no messages available now"})
-   }
-   res.status(200).json({message:"non user message",data:findallmsg})
-}
+export const getNonUserMsg = async (req, res) => {
+  const userId = req.user.id;
+  const findMsg = await Msg.find();
+  if (!userId) {
+    return res.status(400).json({ message: "user not exsisted" });
+  }
+  const findallmsg = findMsg.filter((item) => item.userId != userId);
+  if (!findallmsg || findallmsg.length === 0) {
+    return res.status(400).json({ message: "no messages available now" });
+  }
+  res.status(200).json({ message: "non user message", data: findallmsg });
+};
