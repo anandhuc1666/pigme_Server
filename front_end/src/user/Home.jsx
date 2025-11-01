@@ -11,7 +11,7 @@ function Home() {
   const [nonUser, setNoneUser] = useState([]);
   const [userMSG, setUserMSG] = useState({ msg: "" });
   const myMsg = [...msg];
-  const yourMsg = [...nonUser].reverse();
+  const yourMsg = [...nonUser]
  const server = import.meta.env.VITE_SERVER_HOST
   const handletext = (e) => {
     setUserMSG({ ...userMSG, [e.target.name]: e.target.value });
@@ -73,6 +73,41 @@ function Home() {
       />
       <div className="flex-1 h-[90vh] bg-white overflow-y-auto  rounded-tl-[40px] rounded-tr shadow-lg flex flex-col ">
         <div className="w-full h-[80vh] p-10 overflow-y-auto flex flex-col justify-end  gap-1">
+ {/* {
+  yourMsg?(yourMsg.map((i, k) => {
+            const tym = new Date(i.createdAt).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            return (
+              <div className="flex w-full h-auto mt-5 flex-col ">
+                <div
+                  className="w-fit h-auto px-3 py-2 bg-gradient-to-r from-[#9747FF] to-[#C927C9]  rounded-tl-[10px] rounded-tr-[10px] rounded-br-[10px] text-white"
+                  key={k}
+                >
+                  {i.msg}
+                </div>
+                <li className="list-none text-[10px]">{tym}</li>
+              </div>
+            );
+          })):(myMsg?.map((i, k) => {
+            const tym = new Date(i.createdAt).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
+            return (
+              <div className="flex w-full h-auto mt-5 items-end flex-col">
+                <div
+                  className="w-fit h-auto px-3 py-2 bg-gradient-to-r from-[#9747FF] to-[#C927C9] text-white rounded-tl-[10px] rounded-tr-[10px] rounded-bl-[10px]"
+                  key={k}
+                >
+                  {i.msg}
+                </div>
+                <li className="list-none text-[10px]">{tym}</li>
+              </div>
+            );
+          }))
+ } */}
           {yourMsg?.map((i, k) => {
             const tym = new Date(i.createdAt).toLocaleTimeString([], {
               hour: "2-digit",
